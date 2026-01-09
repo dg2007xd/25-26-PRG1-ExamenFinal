@@ -2,7 +2,7 @@ package entregas.gonzalesDiego;
 
 import java.util.Scanner;
 
-public class maquinaExpendedora {
+public class MaquinaExpendedora {
 
     public static void main(String[] args) {
         Scanner entradaUsuario = new Scanner(System.in);
