@@ -19,23 +19,9 @@ public class maquinaExpendedora {
         System.out.println("Maquina Expendedora v1.0");
         
         while (true) {
-            System.out.println(); 
-            System.out.println("Productos Disponibles");
-            for (int i = 0; i < productos.length; i++) {
-                System.out.println((i + 1) + ". " + productos[i] + " | Precio: " + precios[i] + "eur | Stock: " + stock[i]);
-            }
             
-            System.out.println(); 
-            
-            System.out.println("Saldo actual: " + ((int) (saldo * 100)) / 100.0 + " euros (Max. " + saldoMaximo + "eur)");
-            System.out.print("[1] Insertar moneda (Validas: ");
-            for(int i = 0; i < monedasValidas.length; i++) {
-                System.out.print(monedasValidas[i] + " ");
-            }
-            System.out.println(")");
-            System.out.println("[2] Seleccionar producto");
-            System.out.println("[3] Salir y recuperar cambio");
-            System.out.print("Opcion: ");
+            imprimirMenu(productos, precios, stock, saldo, saldoMaximo, monedasValidas);
+
             int opcion = entradaUsuario.nextInt();
             
             if (opcion == 1) {
@@ -87,5 +73,29 @@ public class maquinaExpendedora {
             }
         }
         entradaUsuario.close();
+    }
+
+    static void imprimirMenu(String[] productos, double[] precios, int[] stock, double saldo, double saldoMaximo, double[] monedasValidas) {
+        System.out.println();
+        System.out.println("Productos Disponibles");
+        for (int i = 0; i < productos.length; i++) {
+            System.out.println((i + 1) + ". " + productos[i] + " | Precio: " + precios[i] + "eur | Stock: " + stock[i]);
+        }
+        
+        System.out.println();
+        System.out.println(
+            "Saldo actual: " +
+            ((int) (saldo * 100)) / 100.0 +
+            " euros (Max. " + saldoMaximo + "eur)"
+        );
+        
+        System.out.print("[1] Insertar moneda (Validas: ");
+        for (double moneda : monedasValidas) {
+            System.out.print(moneda + " ");
+        }
+        System.out.println(")");
+        System.out.println("[2] Seleccionar producto");
+        System.out.println("[3] Salir y recuperar cambio");
+        System.out.print("Opcion: ");
     }
 }
