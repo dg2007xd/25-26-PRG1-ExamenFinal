@@ -16,7 +16,7 @@ public class maquinaExpendedora {
 
         double[] monedasValidas = {0.10, 0.20, 0.50, 1.0, 2.0};
 
-        System.out.println("Maquina Expendedora v1.0");
+        System.out.println("Maquina Expendedora v2.0");
 
         while (true) {
 
@@ -28,7 +28,7 @@ public class maquinaExpendedora {
                 System.out.print("Introduce moneda: ");
                 double monedaElejida = entradaUsuario.nextDouble();
                 
-                saldo = procesarMoneda(saldo, saldoMaximo, monedaElejida, monedasValidas);
+                saldo = monedaElegida(saldo, saldoMaximo, monedaElejida, monedasValidas);
 
             } else if (opcion == 2) {
                 System.out.print("Introduce el numero del producto: ");
@@ -52,17 +52,20 @@ public class maquinaExpendedora {
         System.out.println();
         System.out.println("Productos Disponibles");
         for (int i = 0; i < productos.length; i++) {
-            System.out.println((i + 1) + ". " + productos[i] + " | Precio: " + precios[i] + "eur | Stock: " + stock[i]);
+            System.out.println((i + 1) + ". " + productos[i] + " | Precio: " + precios[i] + "euros | Stock: " + stock[i]);
         }
 
         System.out.println();
         System.out.println(
-                "Saldo actual: " + ((int) (saldo * 100)) / 100.0 + " euros (Max. " + saldoMaximo + "eur)"
+                "Saldo actual: " + ((int) (saldo * 100)) / 100.0 + " euros (Max. " + saldoMaximo + " euros)"
         );
 
         System.out.print("[1] Insertar moneda (Validas: ");
-        for (double moneda : monedasValidas) {
-            System.out.print(moneda + " ");
+        for (int i = 0; i < monedasValidas.length; i++) {
+            System.out.print(monedasValidas[i]);
+            if (i < monedasValidas.length - 1) {
+                System.out.print(", ");
+            }
         }
         System.out.println(")");
         System.out.println("[2] Seleccionar producto");
@@ -70,24 +73,24 @@ public class maquinaExpendedora {
         System.out.print("Opcion: ");
     }
 
-    static double procesarMoneda(double saldo, double saldoMaximo, double monedaElejida, double[] monedasValidas) {
+    static double monedaElegida(double saldo, double saldoMaximo, double monedaElegida, double[] monedasValidas) {
         boolean monedaValida = false;
         for (double valorMonedaValida : monedasValidas) {
-            if (monedaElejida == valorMonedaValida) {
+            if (monedaElegida == valorMonedaValida) {
                 monedaValida = true;
                 break;
             }
         }
 
         if (monedaValida) {
-            if (saldo + monedaElejida > saldoMaximo) {
-                System.out.println("ERROR: La maquina no acepta mas de " + saldoMaximo + " euros. Se devuelve " + monedaElejida + " euros.");
+            if (saldo + monedaElegida > saldoMaximo) {
+                System.out.println("ERROR: La maquina no acepta mas de " + saldoMaximo + " euros. Se devuelve " + monedaElegida + " euros.");
             } else {
-                saldo = saldo + monedaElejida;
+                saldo = saldo + monedaElegida;
                 System.out.println("Moneda aceptada.");
             }
         } else {
-            System.out.println("Moneda no valida. Se devuelve " + monedaElejida + " euros.");
+            System.out.println("Moneda no valida. Se devuelve " + monedaElegida + " euros.");
         }
 
         return saldo;
