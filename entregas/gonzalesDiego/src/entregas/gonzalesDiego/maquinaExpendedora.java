@@ -19,7 +19,7 @@ public class maquinaExpendedora {
         System.out.println("Maquina Expendedora v1.0");
         
         while (true) {
-            
+
             imprimirMenu(productos, precios, stock, saldo, saldoMaximo, monedasValidas);
 
             int opcion = entradaUsuario.nextInt();
@@ -49,19 +49,8 @@ public class maquinaExpendedora {
                 System.out.print("Introduce el numero del producto: ");
                 int seleccion = entradaUsuario.nextInt() - 1; 
                 
-                if (seleccion >= 0 && seleccion < productos.length) {
-                    if (stock[seleccion] <= 0) {
-                        System.out.println("Lo sentimos, producto agotado.");
-                    } else if (saldo < precios[seleccion]) {
-                        System.out.println("Saldo insuficiente. Necesitas " + precios[seleccion] + "eur.");
-                    } else {
-                        saldo = saldo - precios[seleccion];
-                        stock[seleccion] = stock[seleccion] - 1;
-                        System.out.println("¡Gracias! Aqui tienes tu " + productos[seleccion] + ".");
-                    }
-                } else {
-                    System.out.println("Seleccion invalida.");
-                }
+                saldo = procesarSeleccionProducto(seleccion, saldo, productos, precios, stock);
+                
             } else if (opcion == 3) {
                 if (saldo > 0) {
                     System.out.println("No olvides recoger tu cambio: " + ((int) (saldo * 100)) / 100.0 + " euros.");
@@ -97,5 +86,22 @@ public class maquinaExpendedora {
         System.out.println("[2] Seleccionar producto");
         System.out.println("[3] Salir y recuperar cambio");
         System.out.print("Opcion: ");
+    }
+
+    static double procesarSeleccionProducto(int seleccion, double saldo, String[] productos, double[] precios, int[] stock) {
+        if (seleccion >= 0 && seleccion < productos.length) {
+            if (stock[seleccion] <= 0) {
+                System.out.println("Lo sentimos, producto agotado.");
+            } else if (saldo < precios[seleccion]) {
+                System.out.println("Saldo insuficiente. Necesitas " + precios[seleccion] + "eur.");
+            } else {
+                saldo = saldo - precios[seleccion];
+                stock[seleccion] = stock[seleccion] - 1;
+                System.out.println("¡Gracias! Aqui tienes tu " + productos[seleccion] + ".");
+            }
+        } else {
+            System.out.println("Seleccion invalida.");
+        }
+        return saldo;
     }
 }
